@@ -1,12 +1,26 @@
+import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native'
+import fetchMyFonts from './Hooks/MyHookUseFont'
+import ScreenMeals from './Screens/ScreenMeals'
+
+
 
 export default function App() {
+  const [isFontLoaded, setIsFontloaded] = useState(false)
+
+  if (!isFontLoaded) {
+    return (
+      <AppLoading startAsync={fetchMyFonts} onFinish={() => { setIsFontloaded(true) }} onError={(e) => console.log(e)} />
+    )
+
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
+      <ScreenMeals />
     </View>
   );
 }
